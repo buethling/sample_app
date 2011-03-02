@@ -2,16 +2,22 @@
 <html>
   <head>
       <title><%= @title %></title>
-          <%= csrf_meta_tag %>
-          <%= render 'layouts/stylesheets' %>
-            </head>
-              <body>
-              <div class="container">
-              <%= render 'layouts/header' %>
-              <section class="round">
-                  <%= yield %>
-                  </section>
-                      </div>
-                      <%= render 'layouts/footer' %>
-                    </body>
-                    </html>
+      <%= csrf_meta_tag %>
+      <%= render 'layouts/stylesheets' %>
+  </head>
+  <body>
+      <div class="container">
+      <%= render 'layouts/header' %>
+      <section class="round">
+         <% flash.each do |key, value| %>
+            <div class="flash <%= key %>"><%= value %></div>
+            <%= content_tag(:div, value, :class => "flash #{key}") %>
+         <% end %>
+
+         <%= yield %>
+      </section>
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+      </div>
+  </body>
+</html>
